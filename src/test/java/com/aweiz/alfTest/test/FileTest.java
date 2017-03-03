@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -49,7 +50,7 @@ public class FileTest {
         //     HttpGet request = new HttpGet(url);
         HttpPost request = new HttpPost(url);
         request.addHeader("content-type", "application/json");
-        HttpEntity entity = new StringEntity("{\"userId\":\"zdwrz\",\"password\":\"1234\"}");
+        HttpEntity entity = new StringEntity("{\"userId\":\"zdwrz\",\"password\":\"1234\"}", ContentType.APPLICATION_JSON);
         request.setEntity(entity);
 // add request header
 //        request.addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36");
@@ -180,6 +181,7 @@ public class FileTest {
                 .addBinaryBody("filedata", payload)
                 .addTextBody("name", "fileName123.pdf")
                 .addTextBody("nodeType", "cm:content")
+                .addTextBody("overwrite","true")
                 .build();
         request.setEntity(entity);
         HttpResponse response = client.execute(request);
@@ -192,4 +194,5 @@ public class FileTest {
         }
         System.out.println(result.toString());
     }
+
 }
